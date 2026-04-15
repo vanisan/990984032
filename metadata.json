@@ -1,0 +1,6 @@
+{
+  "name": "Tap Legends RPG",
+  "description": "A mobile-first multiplayer tap RPG with raids, bosses, and castle sieges.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["multiplayer", "real-time"]
+}
