@@ -350,12 +350,30 @@ export function useGameState() {
   const equipItem = useCallback((item: Item) => {
     setEquipment(prev => {
       const type = item.type as keyof Equipment;
+      const oldItem = prev[type];
+      
+      setInventory(inv => {
+        // Remove the new item from inventory
+        let newInv = inv.filter(i => i.id !== item.id);
+        // If there was an item in that slot, put it back in inventory
+        if (oldItem) {
+          newInv = [...newInv, oldItem];
+        }
+        return newInv;
+      });
+      
       return { ...prev, [type]: item };
     });
   }, []);
 
   const unequipItem = useCallback((type: keyof Equipment) => {
-    setEquipment(prev => ({ ...prev, [type]: null }));
+    setEquipment(prev => {
+      const item = prev[type];
+      if (item) {
+        setInventory(inv => [...inv, item]);
+      }
+      return { ...prev, [type]: null };
+    });
   }, []);
 
   const sellItem = useCallback((item: Item) => {
