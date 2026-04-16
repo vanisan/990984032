@@ -17,7 +17,7 @@ import { Item, Equipment } from '@/types/game';
 import Image from 'next/image';
 import { ShoppingBag, Backpack, Sword, Shield, Footprints, CircleDot, Ghost, Zap, Sparkles, PawPrint } from 'lucide-react';
 
-type Tab = 'combat' | 'skills' | 'inventory' | 'shop' | 'social' | 'castle';
+type Tab = 'combat' | 'skills' | 'inventory' | 'shop';
 
 export default function GamePage() {
   const { 
@@ -343,7 +343,7 @@ export default function GamePage() {
                     size="sm"
                     onClick={() => setShopCategory(cat.id as any)}
                     className={cn(
-                      "flex-shrink-0 gap-2 h-9 text-[10px] px-3 font-black uppercase tracking-wider transition-all",
+                       "flex-shrink-0 gap-2 h-9 text-[10px] px-3 font-black uppercase tracking-wider transition-all",
                       shopCategory === cat.id ? "bg-yellow-600 hover:bg-yellow-700 text-white shadow-[0_0_10px_rgba(202,138,4,0.3)]" : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800"
                     )}
                   >
@@ -387,26 +387,6 @@ export default function GamePage() {
               </div>
             </div>
           </ScrollArea>
-        )}
-
-        {activeTab === 'social' && (
-          <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-4">
-            <h2 className="text-2xl font-bold">Зал Гильдии</h2>
-            <p className="text-muted-foreground text-sm">
-              Мультиплеерные функции, такие как Рейды и Группы, появятся скоро!
-            </p>
-            <Badge variant="outline" className="text-blue-400 border-blue-400">Скоро</Badge>
-          </div>
-        )}
-
-        {activeTab === 'castle' && (
-          <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-4">
-            <h2 className="text-2xl font-bold">Осада Замка</h2>
-            <p className="text-muted-foreground text-sm">
-              Захватывайте замки вместе со своей гильдией, чтобы получать огромные награды.
-            </p>
-            <Badge variant="outline" className="text-red-400 border-red-400">Зона Войны</Badge>
-          </div>
         )}
       </div>
 

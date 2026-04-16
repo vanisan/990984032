@@ -4,7 +4,7 @@ import { Swords, Zap, Briefcase, Users, Castle, ShoppingBag } from 'lucide-react
 import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
 
-type Tab = 'combat' | 'skills' | 'inventory' | 'shop' | 'social' | 'castle';
+type Tab = 'combat' | 'skills' | 'inventory' | 'shop';
 
 interface NavigationProps {
   activeTab: Tab;
@@ -18,8 +18,6 @@ export function Navigation({ activeTab, onTabChange, showSkillNotification }: Na
     { id: 'skills', icon: Zap, label: 'Навыки', notification: !!showSkillNotification },
     { id: 'inventory', icon: Briefcase, label: 'Вещи', notification: false },
     { id: 'shop', icon: ShoppingBag, label: 'Магазин', notification: false },
-    { id: 'social', icon: Users, label: 'Гильдия', notification: false },
-    { id: 'castle', icon: Castle, label: 'Замок', notification: false },
   ];
 
   return (
