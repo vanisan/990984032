@@ -14,8 +14,8 @@ import { cn } from '@/lib/utils';
 import { ItemDetails } from '@/components/game/ItemDetails';
 import { ITEMS } from '@/lib/items';
 import { Item, Equipment } from '@/types/game';
-import Image from 'next/image';
-import { ShoppingBag, Backpack, Sword, Shield, Footprints, CircleDot, Ghost, Zap, Sparkles, PawPrint } from 'lucide-react';
+import { GameImage } from '@/components/ui/game-image';
+import { ShoppingBag, Backpack, Sword, Shield, Footprints, CircleDot, Ghost, Zap, Sparkles, PawPrint, User, Box } from 'lucide-react';
 
 type Tab = 'combat' | 'skills' | 'inventory' | 'shop';
 
@@ -99,12 +99,11 @@ export default function GamePage() {
           stoneToInlay && item && item.gemSlots && item.gemSlots.some(slot => slot === null) && "border-purple-500 animate-pulse shadow-[0_0_10px_rgba(168,85,247,0.5)] bg-purple-500/10"
         )}>
           {item ? (
-            <Image 
+            <GameImage 
               src={item.image} 
               alt={item.name} 
               fill 
-              className="object-contain p-2" 
-              referrerPolicy="no-referrer"
+              className="p-2" 
             />
           ) : (
             <Icon className="w-6 h-6" />
@@ -131,7 +130,7 @@ export default function GamePage() {
             <div className="bg-purple-900/90 border-2 border-purple-500 p-3 rounded-xl shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center justify-between pointer-events-auto animate-in fade-in slide-in-from-top-4">
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 bg-black border border-purple-400 rounded-lg p-1.5 shadow-[inset_0_0_10px_rgba(168,85,247,0.2)]">
-                  <Image src={stoneToInlay.image} alt={stoneToInlay.name} fill className="object-contain" referrerPolicy="no-referrer" />
+                  <GameImage src={stoneToInlay.image} alt={stoneToInlay.name} fill className="p-1.5" />
                 </div>
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-tighter text-purple-100 leading-none mb-1">Режим вплавки</p>
@@ -184,12 +183,12 @@ export default function GamePage() {
                       className="flex items-center gap-4 bg-zinc-900 border border-zinc-800 p-3 rounded-xl hover:border-yellow-500/50 transition-all active:scale-95"
                     >
                       <div className="relative w-12 h-12 bg-black border border-zinc-800 rounded-lg overflow-hidden flex-shrink-0">
-                        <Image 
+                        <GameImage 
                           src={prof.icon} 
                           alt={prof.name} 
                           fill 
-                          className="object-contain p-1" 
-                          referrerPolicy="no-referrer"
+                          className="p-1" 
+                          fallbackIcon={<User className="w-6 h-6 opacity-20" />}
                         />
                       </div>
                       <div className="text-left">
@@ -207,12 +206,11 @@ export default function GamePage() {
                     <CardHeader className="p-4 pb-2">
                       <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 bg-black border border-zinc-800 rounded overflow-hidden flex-shrink-0">
-                          <Image 
+                          <GameImage 
                             src={skill.icon} 
                             alt={skill.name} 
                             fill 
-                            className="object-contain p-1" 
-                            referrerPolicy="no-referrer"
+                            className="p-1" 
                           />
                         </div>
                         <CardTitle className="text-sm flex-1 flex justify-between items-center">
@@ -286,12 +284,11 @@ export default function GamePage() {
                       )}
                     >
                       <div className="relative w-full h-full p-1">
-                        <Image 
+                        <GameImage 
                           src={item.image} 
                           alt={item.name} 
                           fill 
-                          className="object-contain" 
-                          referrerPolicy="no-referrer"
+                          fallbackIcon={<Box className="w-5 h-5 opacity-20" />}
                         />
                       </div>
                       {isEquipped(item) && (
@@ -366,12 +363,11 @@ export default function GamePage() {
                     )}
                   >
                     <div className="relative w-full h-full p-1.5">
-                      <Image 
+                      <GameImage 
                         src={item.image} 
                         alt={item.name} 
                         fill 
-                        className="object-contain" 
-                        referrerPolicy="no-referrer"
+                        fallbackIcon={<Box className="w-5 h-5 opacity-20" />}
                       />
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-0.5">

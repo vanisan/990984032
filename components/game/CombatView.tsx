@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Enemy, Skill } from '@/types/game';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { GameImage } from '@/components/ui/game-image';
+import { Swords } from 'lucide-react';
 
 interface CombatViewProps {
   enemy: Enemy | null;
@@ -18,6 +19,13 @@ interface CombatViewProps {
 
 export function CombatView({ enemy, onTap, damageNumbers, onDamageComplete, skills, onUseSkill }: CombatViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line react-hooks/purity
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleClick = (e: React.MouseEvent | React.TouchEvent) => {
     // Prevent tap if clicking a skill button
@@ -80,19 +88,18 @@ export function CombatView({ enemy, onTap, damageNumbers, onDamageComplete, skil
         whileTap={{ scale: 0.95, rotate: [0, -2, 2, 0] }}
         className="relative w-24 h-24"
       >
-        <Image
+        <GameImage
           src={enemy.image}
           alt={enemy.name}
           fill
-          className="object-contain drop-shadow-[0_0_30px_rgba(255,0,0,0.2)]"
-          referrerPolicy="no-referrer"
+          className="drop-shadow-[0_0_30px_rgba(255,0,0,0.2)]"
+          fallbackIcon={<Swords className="w-12 h-12 opacity-10" />}
         />
       </motion.div>
 
       {/* Skills in Combat */}
       <div className="absolute bottom-24 flex gap-4">
         {skills.map((skill) => {
-          const now = Date.now();
           const timeSinceLastUse = now - skill.lastUsed;
           const cooldownRemaining = Math.max(0, skill.cooldown * 1000 - timeSinceLastUse);
           const isOnCooldown = cooldownRemaining > 0;
@@ -110,12 +117,11 @@ export function CombatView({ enemy, onTap, damageNumbers, onDamageComplete, skil
                 isOnCooldown ? "border-zinc-800 grayscale" : "border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.3)]"
               )}
             >
-              <Image 
+              <GameImage 
                 src={skill.icon} 
                 alt={skill.name} 
                 fill 
-                className="object-contain p-2" 
-                referrerPolicy="no-referrer"
+                className="p-2" 
               />
               {isOnCooldown && (
                 <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-black text-lg">

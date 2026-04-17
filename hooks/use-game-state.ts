@@ -249,7 +249,10 @@ export function useGameState() {
 
   useEffect(() => {
     if (!currentEnemy) {
-      spawnEnemy();
+      const timer = setTimeout(() => {
+        spawnEnemy();
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [currentEnemy, spawnEnemy]);
 
@@ -276,7 +279,7 @@ export function useGameState() {
 
       return { ...prev, hp: newHp };
     });
-  }, [currentEnemy, player, handleEnemyDefeat]);
+  }, [currentEnemy, player, handleEnemyDefeat, basePlayer.energy]);
 
   const useSkill = useCallback((skillId: string) => {
     const skill = availableSkills.find(s => s.id === skillId);

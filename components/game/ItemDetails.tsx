@@ -5,9 +5,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Sword, Shield, Heart, Zap, Target, Coins, Gem } from 'lucide-react';
+import { Sword, Shield, Heart, Zap, Target, Coins, Gem, Box } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { GameImage } from '@/components/ui/game-image';
 
 interface ItemDetailsProps {
   item: Item | null;
@@ -82,12 +82,12 @@ export function ItemDetails({
         <div className="p-4 space-y-4">
           <div className="flex gap-4">
             <div className="relative w-20 h-20 bg-black border border-zinc-800 flex items-center justify-center shrink-0">
-              <Image
+              <GameImage
                 src={item.image}
                 alt={item.name}
                 fill
-                className="object-contain p-2"
-                referrerPolicy="no-referrer"
+                className="p-2"
+                fallbackIcon={<Box className="w-8 h-8 opacity-20" />}
               />
             </div>
             <div className="flex flex-col justify-center">
@@ -97,7 +97,7 @@ export function ItemDetails({
           </div>
 
           <div className="bg-zinc-900/30 p-3 border border-zinc-800/50 rounded-sm">
-            <p className="text-xs text-zinc-400 italic leading-relaxed">"{item.description}"</p>
+            <p className="text-xs text-zinc-400 italic leading-relaxed">&quot;{item.description}&quot;</p>
           </div>
           
           <div className="grid grid-cols-1 gap-1.5">
@@ -129,12 +129,12 @@ export function ItemDetails({
               {item.gemSlots?.map((stone, idx) => (
                 <div key={idx} className="w-8 h-8 border border-zinc-800 flex items-center justify-center bg-black relative">
                   {stone ? (
-                    <Image 
+                    <GameImage 
                       src={stone.image} 
                       alt={stone.name} 
                       fill 
-                      className="object-contain p-1" 
-                      referrerPolicy="no-referrer"
+                      className="p-1" 
+                      fallbackIcon={<Gem className="w-4 h-4 opacity-20" />}
                     />
                   ) : (
                     <div className="w-1 h-1 bg-zinc-800 rounded-full" />

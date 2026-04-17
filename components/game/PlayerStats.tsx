@@ -2,8 +2,8 @@
 
 import { PlayerStats as PlayerStatsType, PlayerClass } from '@/types/game';
 import { Progress } from '@/components/ui/progress';
-import { Coins, Shield, Swords, Zap, Target } from 'lucide-react';
-import Image from 'next/image';
+import { Coins, Shield, Swords, Zap, Target, User } from 'lucide-react';
+import { GameImage } from '@/components/ui/game-image';
 
 const CLASS_ICONS: Record<PlayerClass, string> = {
   fighter: '/classes/fighter-1.webp',
@@ -35,12 +35,12 @@ export function PlayerStats({ player }: PlayerStatsProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="relative w-10 h-10 bg-zinc-900 border border-zinc-800 flex items-center justify-center shadow-[inset_0_0_5px_rgba(0,0,0,0.5)]">
-            <Image 
+            <GameImage 
               src={CLASS_ICONS[player.class]} 
               alt={player.class} 
               fill 
-              className="object-contain p-1"
-              referrerPolicy="no-referrer"
+              className="p-1"
+              fallbackIcon={<User className="w-5 h-5 opacity-20" />}
             />
             <div className="absolute -bottom-1 -right-1 bg-zinc-950 border border-zinc-800 w-5 h-5 flex items-center justify-center text-[10px] font-black text-white">
               {player.level}
